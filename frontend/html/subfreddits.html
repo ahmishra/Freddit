@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}
+Freddit - Subfreddits
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container" style="margin-top: 100px;">
+
+        {% for message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{ message[0] }}" style="width: 104%; font-weight: bolder;">
+            {{ message[1] }}
+        </div>
+        {% endfor %}
+
+        <div class="row">
+            {% if subfreddits != [] %}
+                {% for i in subfreddits %}
+                <div class="col-auto">
+                    <div class="card subfreddit-card" style="height: 90%;">
+                        <img src="{{ url_for('static', filename='images/site_images/'+'banner-default.png') }}" class="card-img-top">
+                        <div class="card-body" style="padding: 35px;">
+                            <h5 class="card-title subfreddit-heading"><a href="{{ url_for('subfreddit_detail', subfreddit_title=i.name) }}">{{ i.name }}</a></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Memembers: {{ i.joined|length }}</h6>
+                            <p class="card-text" style="margin-top: 5px;">{{ i.description }}</p>
+                            {% if i.joined != [] %}
+                                {% for joined_users in i.joined %}
+                                    {% if current_user == joined_users %}
+                                    <div class="flip">
+                                        <a href="{{ url_for('join_subfreddit', action='leave', subfreddit_title=i.name) }}">
+                                            <div class="front">Leave</div>
+                                            <div class="back">Now <i class="fas fa-sign-in-alt"></i></div>
+                                        </a>
+                                    </div>
+                                    {% else %}
+                                    <div class="flip">
+                                        <a href="{{ url_for('join_subfreddit', action='join', subfreddit_title=i.name) }}">
+                                            <div class="front">Join</div>
+                                            <div class="back">Now <i class="fas fa-sign-in-alt"></i></div>
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                            <div class="flip">
+                                <a href="{{ url_for('join_subfreddit', action='join', subfreddit_title=i.name) }}">
+                                    <div class="front">Join</div>
+                                    <div class="back">Now <i class="fas fa-sign-in-alt"></i></div>
+                                </a>
+                            </div>
+                            {% endif %}
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <h3 class="brand center">Hey there fellow, well it looks like no one has subfreddited yet, be the first to subfreddit and get a badge!</h3>
+            <br><hr class="container" style="width: 75%; margin-top: 20px;"><br>
+            <p class="center" style="font-weight: 900; font-size: 16px;"><small class="text-muted">Follow-up badges for 2nd and 3rd subfreddits too!</small></p>
+            <div class="col text-center">
+                <button class="input-submit center" style="width: 150px;"><a href="{{ url_for('new_subfreddit') }}">Subfreddit</a></button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

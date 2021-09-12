@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+Freddit - Comment - {{ post.title }}
+{% endblock title %}
+
+{% block content %}
+    <div class="container" style="margin-top: 100px;">
+        <div class="jumbotron" style="padding: 50px; border-radius: 15px; box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;">
+            <form method="post">
+
+                <h3 class="brand">{{ post.title }}</h3>
+                <br>
+                <p>Your thoughts on it</p>
+                <input type="text" name="content" id="content" class="form-control" placeholder="Woah, EPIC!" style="padding: 20px;">
+                <br>
+                <button type="submit" class="input-submit">Comment</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

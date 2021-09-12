@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}
+Freddit - Signup
+{% endblock title %}
+
+{% block content %}
+
+<div class="container" style="padding: 0px;">
+    {% for message in get_flashed_messages(with_categories=True) %}
+    <div class="alert alert-{{ message[0] }}" style="width: 104%; font-weight: bolder; margin-top: 100px;">
+        {{ message[1] }}
+    </div>
+    {% endfor %}
+
+    
+    <div class="jumbotron user-input-form"  style="padding: 0px;">
+        <form method="post">
+            {{ form.hidden_tag() }}
+            <div class="row">
+            <div class="col-lg">
+                <img src="{{ url_for('static', filename='images/signup.jpg') }}" width="100%" height="100%" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+            </div>
+
+            <div class="col-lg" style="padding: 50px;">
+                <br>
+                <h3 class="brand"><img src="{{ url_for('static', filename='images/icon.png') }}" width="32" height="32" style="vertical-align: middle;"> <text style="vertical-align: middle;">Freddit</text></h3>
+                <p><small class="text-muted brand">We promise we won't leak it, feel secure :D</small></p>
+                <p><small class="text-muted" style="font-weight: bold;">The passwords are hashed randomly so we, even as the developers cant see your password!</small></p>
+                <br><br>
+
+                <div class="email">
+                    {% if form.email.errors %}
+                        {{ form.email(placeholder="Email", class="input-text is-invalid", style="width:100%; border: 1.5px solid red;") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <p style="font-weight: bolder;">{{ error }}</p>
+                            {% endfor %}
+                            <br><br>
+                        </div>
+                    {% else %}
+                    {{ form.email(placeholder="Email", class="input-text", style="width:100%;") }}
+                    <br><br>
+                    {% endif %}
+                </div>
+            
+                <div class="username">
+                    {% if form.username.errors %}
+                        {{ form.username(placeholder="Username", class="input-text is-invalid", style="width:100%; border: 1.5px solid red;") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <p style="font-weight: bolder;">{{ error }}</p>
+                            {% endfor %}
+                            <br><br>
+                        </div>
+                    {% else %}
+                    {{ form.username(placeholder="Username", class="input-text", style="width:100%;") }}
+                    <br><br>
+                    {% endif %}
+                </div>
+
+                <div class="password">
+                    {% if form.password.errors %}
+                        {{ form.password(placeholder="Password", class="input-text is-invalid", style="width:100%; border: 1.5px solid red;") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <p style="font-weight: bolder;">{{ error }}</p>
+                            {% endfor %}
+                            <br><br>
+                        </div>
+                    {% else %}
+                    {{ form.password(placeholder="Password", class="input-text", style="width:100%;") }}
+                    <br><br>
+                    {% endif %}
+                </div>
+
+                <div class="confirm_password">
+                    {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(placeholder="Confirm password", class="input-text is-invalid", style="width:100%; border: 1.5px solid red;") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm_password.errors %}
+                                <p style="font-weight: bolder;">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                    {{ form.confirm_password(placeholder="Confirm password", class="input-text", style="width:100%;") }}
+                    <br><br>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="input-submit" style="float: right; margin-right: 0px; font-weight: bold;" title="Who-hoo! lets get you signed up!">
+                    Signup &nbsp; <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <a href="{{ url_for('login') }}" style="float: left; margin-top: 12px; text-decoration: none;">Login instead?</a>
+            </div>
+        </div>
+        </form>
+    </div>
+    <br><br><br>
+</div>
+<br><br><br><br>
+{% endblock content %}

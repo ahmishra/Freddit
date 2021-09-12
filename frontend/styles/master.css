@@ -1,0 +1,251 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar {
+    background-color: #ffffff;
+    padding: 25px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    border-radius: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border: none;
+    outline: none;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.brand {
+    font-weight: 800;
+    font-size: 24px;
+}
+
+
+.dropdown-item {
+    padding: 15px;
+    border: none;
+}
+
+.dropdown-item:hover {
+    background-color: #257AFD;
+    color: white;
+}
+
+.dropdown-menu {
+    padding: 0px;
+    border-radius: 10px;
+    border: 1px solid gray;
+}
+
+.sidebar {
+    padding: 50px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    border-radius: 10px;
+    /* margin: 10%; */
+}
+
+.sidebar-link {
+    color: black;
+    background: transparent;
+    text-decoration: none;
+}
+
+.posts {
+    border: 1px solid gray;
+    padding: 50px;
+}
+
+.post-heading a {
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+.post-heading a:hover {
+    color: blue;
+}
+
+.user-input-form {
+    margin-top: 100px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    /* margin-right: -55px; */
+}
+
+.input-text {
+    padding: 15px;
+    font-size: 18px;
+    outline: none;
+}
+
+.input-text:focus {
+    font-weight: bold;
+}
+
+.input-submit {
+    padding: 8px 16px;
+    border-radius: 0px;
+    cursor: pointer;
+    border: 1px solid black;
+    background: linear-gradient(45deg, #fff 50%, #212121 50%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+
+.input-submit:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(45deg, #212121 50%, transparent 50%);
+  z-index: -1;
+}
+
+.input-submit,
+.input-submit:after {
+  background-size: 300%;
+  background-position: 100%;
+  transition: 0.5s, font-size 0.2s;
+}
+
+.input-submit:hover,
+.input-submit:hover:after {
+  background-position: 0;
+}
+
+
+.fas {
+    vertical-align: middle;
+}
+
+.subfreddit-card {
+    width: auto;
+    border-radius: 15px;
+    margin: 15px;
+    margin-bottom: 50px;
+    border: none;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    height: 100%;
+}
+
+.join-btn {
+    background: transparent;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.flip {
+  /* position: absolute; */
+  width: 160px;
+  height: 48px;
+  perspective: 500px;
+}
+.flip a {
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+.flip a .front,
+.flip a .back {
+  margin: 0;
+  width: 160px;
+  height: 48px;
+  line-height: 48px;
+  position: absolute;
+  text-align: center;
+  letter-spacing: 0.4em;
+}
+.flip a .front {
+  background-color: #222;
+  color: #fff;
+  transform: rotateY(0) translateZ(24px);
+}
+.flip a .back {
+  background-color: rgba(255,255,255,0);
+  color: rgba(34,34,34,0);
+  transform: rotateX(90deg) translateZ(24px);
+  overflow: hidden;
+}
+.flip a .back:after {
+  content: '';
+  position: absolute;
+  top: -32%;
+  left: -10%;
+  width: 120%;
+  height: 50%;
+  background: #222;
+  transform: rotate(8deg);
+  transition: all 1s ease;
+}
+.flip a:hover {
+  transform: translateZ(-24px) rotateX(-90deg);
+}
+.flip a:hover .front {
+  background: #000;
+  transition: all 10s ease;
+}
+.flip a:hover .back {
+  color: #222;
+  transition: color 0.3s linear;
+  background: #fff;
+  border: 2px solid black;
+}
+.flip a:hover .back:after {
+  transform: rotate(6deg) translate(100px, -18px);
+}
+
+.center {
+    text-align: center;
+}
+
+.card-title a {
+  color: black;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.card-title a:hover {
+  color: cornflowerblue;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+     margin-bottom: 10%;
+  }
+
+  .navbar {
+    padding: 30px;
+  }
+
+  .branded-nav {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .dropdown-menu {
+    margin-bottom: 15px;
+  }
+}
+
+.dropdown-item {
+  outline: none;
+  border: none;
+}

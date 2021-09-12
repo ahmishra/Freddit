@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}
+Freddit - {{ subfreddit.name }}
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+        <br><br>
+        {% for message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{ message[0] }}" style="width: 104%; font-weight: bolder;">
+        {{ message[1] }}
+        </div>
+        {% endfor %}
+
+        <div class="jumbotron" style="margin-top: 60px; height: 100%; border-radius: 15px; padding: 0px; box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;">
+            <img src="{{ url_for('static', filename='images/site_images/'+'banner-default.png') }}" style="width: 100%; height: 650px; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+            <div class="text" style="padding: 35px;">
+                <br>
+                <div class="ranking" style="float: right;">
+                {% if subfreddit.subfreddit_id == 1 %}
+                <img src="{{ url_for('static', filename='images/first.png') }}" style="width: 64px; height: 64px;">
+                {% elif subfreddit.subfreddit_id == 2 %}
+                <img src="{{ url_for('static', filename='images/second.png') }}" style="width: 64px; height: 64px;">
+                {% elif subfreddit.subfreddit_id == 3 %}
+                <img src="{{ url_for('static', filename='images/third.png') }}" style="width: 64px; height: 64px;">
+                {% endif %}
+                </div>
+                <h3 class="brand"><a href="{{ url_for('subfreddits') }}" style="color: black;"><i class="fas fa-chevron-circle-left" style="vertical-align: middle;"></i></a> <span style="vertical-align: middle;">&nbsp;&nbsp;&nbsp;{{ subfreddit.name }}</span></h3>
+                <p><small class="text-muted" style="font-weight: 800;">Members: {{ subfreddit.joined|length }}</small></p>
+                <p class="body">{{ subfreddit.description }}</p>
+                <br>
+                {% if subfreddit.joined != [] %}
+                {% for joined_users in subfreddit.joined %}
+                {% if current_user == joined_users %}
+                <div class="flip">
+                    <a href="{{ url_for('join_subfreddit', action='leave', subfreddit_title=subfreddit.name) }}">
+                        <div class="front">Leave</div>
+                        <div class="back">Now <i class="fas fa-sign-in-alt"></i></div>
+                    </a>
+                </div>
+                {% else %}
+                <div class="flip">
+                    <a href="{{ url_for('join_subfreddit', action='join', subfreddit_title=subfreddit.name) }}">
+                        <div class="front">Join</div>
+                        <div class="back">Now <i class="fas fa-sign-in-alt"></i></div>
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div class="flip">
+                <a href="{{ url_for('join_subfreddit', action='join', subfreddit_title=subfreddit.name) }}">
+                <div class="front">Join</div>
+                <div class="back">Now <i class="fas fa-sign-in-alt"></i></div>
+                </a>
+                </div>
+                {% endif %}
+                <br>
+                <a href="{{ url_for('new_post') }}"><button class="input-submit" style="width: 500p; height: 100%;">Post</button></a>
+            </div>
+        </div>
+
+        <div class="container">
+            {% if posts != [] %}
+                {% for post in posts %}
+                    <div class="jumbotron" style="height: 100%; padding: 35px; margin: 5px; margin-top: 50px; box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;">
+                        <small class="text-muted" style="font-weight: 900;">{{ post.owner.username }}</small><br>
+                        <small class="text-muted">{{ post.owner.email }}</small><br>
+                        <small class="text-muted">{{ post.date_posted }} UTC</small><br><br>
+
+                        <h5 class="brand"><a href="{{ url_for('post_detail', post_title=post.title, subfreddit_title=post.subfreddit.name) }}" style="text-decoration: none; color: cornflowerblue;">{{ post.title }}</a></h5>
+                        <p class="text">{{ post.content.split()|length/200*1.5|round|int }} Minute reading time</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <br><hr>
+            <h5 style="margin-top: 20px;" class="brand">This subfreddit doesn't have any posts yet!</h5>
+            {% endif %}
+        </div>
+    </div>
+<br><br><br>
+{% endblock content %}

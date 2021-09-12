@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}
+Freddit - The scuffed reddit
+{% endblock title %}
+
+{% block content %}
+
+<div>
+    <div class="container" style="margin-top: 80px;">
+        {% for message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{ message[0] }}" style="width: 104%; font-weight: bolder;">
+            {{ message[1] }}
+        </div>
+        {% endfor %}
+
+        <div class="row">
+            <div class="col-xl">
+                <div class="post jumbotron" style="border: 5px solid black; padding: 30px; margin-bottom: 0px; width: 100%;">
+                    <h3 class="brand">Latest freds</h3>
+                    <small style="font-weight: bolder;">Unique visits: {{ unique_views|length }}</small><br>
+                    <small style="font-weight: bolder;">Total visits: {{ views|length }}</small><br>
+                    <small style="font-weight: bolder;">Total freds: {{ posts|length }}</small><br>
+                </div>
+
+                <br>
+
+                {% if posts != [] %}
+                {% for i in posts %}
+                <div class="post jumbotron" style="border: 1px solid gray; padding: 30px; margin-bottom: 30px;">
+                    <h3 class="post-heading"><a style="text-decoration: none; color: cornflowerblue;" href="{{ url_for('post_detail', post_title=i.title, subfreddit_title=i.subfreddit.name) }}">{{ i.title }}</a></h3>
+                    <p class="post-content"><small class="text-muted">Subfreddit: <a style="text-decoration: none; color: cornflowerblue" href="{{ url_for('subfreddit_detail', subfreddit_title=i.subfreddit.name) }}">{{ i.subfreddit.name }} [Members: {{ i.subfreddit.joined|length }}]</a></small></p>
+                    <small class="text-muted" style="font-weight: bolder;">{{ i.date_posted }} UTC</small><br>
+                    <small class="text-muted" style="font-weight: bolder;">By: {{ i.owner.username }}</small>
+                </div>
+                {% endfor %}
+                {% else %}
+                <h4 class="brand">No postes have been made yet!</h4>
+                {% endif %}
+            </div>
+
+            <div class="col-sm">
+                {% if current_user.is_authenticated %}
+                <!-- Sidebar -->
+                <div class="sidebar jumbotron">
+                    <h3 class="brand">Joined subfreddits</h3>
+
+                    <br><br>
+                    {% if current_user.joined != [] %}
+                    {% for i in current_user.joined %}
+                    <p style="margin-top: 20px; margin-bottom: 20px;"><a href="{{ url_for('subfreddit_detail', subfreddit_title=i.name) }}" class="sidebar-link">{{ i.name }}</a><p><hr>
+                    {% endfor %}
+                    {% else %}
+                    Not joined any yet
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="sidebar jumbotron">
+                    <h4 style="font-size: 14px; font-weight: bold;"><a href="{{ url_for('login') }}" style="text-decoration: none;">Login</a> to access your subfreddits!</h4>
+                    <hr>
+                    <br><br>
+
+                    <div style="filter: blur(10px); pointer-events: none;">
+                    <h3 class="brand">Joined subfreddits</h3>
+
+                    <br><br>
+
+                    <p style="margin-top: 20px; margin-bottom: 20px;"><a href="#" class="sidebar-link">Some subfreddit</a><p><hr>
+                    <p style="margin-top: 20px; margin-bottom: 20px;"><a href="#" class="sidebar-link">Some subfreddit</a><p><hr>
+                    <p style="margin-top: 20px; margin-bottom: 20px;"><a href="#" class="sidebar-link">Some subfreddit</a><p><hr>
+                    <p style="margin-top: 20px; margin-bottom: 20px;"><a href="#" class="sidebar-link">Some subfreddit</a><p><hr>
+                    <p style="margin-top: 20px; margin-bottom: 20px;"><a href="#" class="sidebar-link">Some subfreddit</a><p><hr>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+<br><br><br>
+{% endblock content %}

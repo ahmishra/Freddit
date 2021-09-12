@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}
+Freddit - New Post
+{% endblock title %}
+
+
+{% block content %}
+
+
+    <div class="container" style="margin-top: 80px;">
+
+        <div class="jumbotron" style="padding: 50px; height: 100%; border-radius: 25px; box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;">
+            <h3 class="brand"><img src="{{ url_for('static', filename='images/icon.png') }}" width="32" height="32" style="vertical-align: middle;"> <text style="vertical-align: middle;">Freddit</text></h3>
+            <h3 class="brand" style="font-size: 16px;">Create a new post!</h3>
+            <br><hr><br>
+            
+            <form method="post">
+                <div class="row">
+                    <div class="col-sm">
+                        <select name="subfreddit" id="subfreddit" class="form-select" style="padding: 20px; padding-right: 40px; margin-bottom: 10px;" required title="Select subfreddit">
+                            {% for i in current_user.joined %}
+                            <option value="{{ i.name }}">{{ i.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-lg">
+                        <input style="margin-bottom: 10px;" type="text" name="name" id="name" placeholder="Post title" class="form-control input-text" required minlength="3" maxlength="64">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg">
+                        <input style="margin-bottom: 10px;" name="thumbnail" id="thumbnail" value="https://i.picsum.photos/id/1015/6000/4000.jpg?hmac=aHjb0fRa1t14DTIEBcoC12c5rAXOSwnVlaA5ujxPQ0I" type="text" placeholder="Pick a thumbnail for your post!" class="form-control"></input>
+                    </div>
+                </div>
+
+                <hr style="background-color: gray; height: 3px;">
+                <br>
+
+                <div class="row">
+                    <div class="col auto">
+                        <textarea name="content" style="margin-bottom: 20px;" id="content" cols="30" rows="10" placeholder="Post content" class="form-control input-text" required minlength="32" maxlength="8129"></textarea>
+                    </div>
+                </div>
+
+                <button class="input-submit">Post</button>
+            </form>
+        </div>
+    </div>
+<br><br><br>
+{% endblock content %}
